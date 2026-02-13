@@ -573,3 +573,91 @@ function copyEmail() {
     }
   });
 }
+
+// ========================================
+// EMAILJS INTEGRATION
+// ========================================
+// Initialize EmailJS with your Public Key
+(function () {
+  emailjs.init('V4rP1oW3WscgXjyq8');
+})();
+
+// Contact Form Submission Handler
+document.getElementById('contact-form').addEventListener('submit', function (event) {
+  event.preventDefault();
+
+  const submitBtn = event.target.querySelector('.btn-submit');
+  const notification = document.getElementById('form-notification');
+  const originalBtnText = submitBtn.textContent;
+
+  // Disable button and show loading state
+  submitBtn.disabled = true;
+  submitBtn.textContent = 'Sending...';
+
+  // Get form data - using standard EmailJS variable names
+  const templateParams = {
+    from_name: document.getElementById('user-name').value,
+    from_email: document.getElementById('user-email').value,
+    message: document.getElementById('message').value,
+    reply_to: document.getElementById('user-email').value
+  };
+
+  // Send email using EmailJS
+  emailjs.send('service_ox0v9jm', 'template_1z1h5ao', templateParams)
+    .then(function (response) {
+      console.log('SUCCESS!', response.status, response.text);
+
+      // Send auto-reply to the user
+      const autoReplyParams = {
+        to_name: templateParams.from_name,
+        to_email: templateParams.from_email,
+        from_name: 'Faizaan'
+      };
+
+      console.log('--- DEBUG AUTO-REPLY ---');
+      console.log('Sending auto-reply with params:', autoReplyParams);
+      console.log('Template ID:', 'template_llslbnz');
+      console.log('Service ID:', 'service_ox0v9jm');
+      console.log('User Email (should be to_email):', autoReplyParams.to_email);
+
+      // Send auto-reply (replace 'YOUR_AUTOREPLY_TEMPLATE_ID' with your actual auto-reply template ID)
+      emailjs.send('service_ox0v9jm', 'template_llslbnz', autoReplyParams)
+        .then(function (autoReplyResponse) {
+          console.log('Auto-reply sent successfully!', autoReplyResponse.status);
+          console.log('Auto-reply response:', autoReplyResponse);
+        })
+        .catch(function (autoReplyError) {
+          console.error('Auto-reply FAILED:', autoReplyError);
+        });
+
+      // Show success notification
+      notification.textContent = 'Message sent successfully! I\'ll get back to you soon.';
+      notification.className = 'form-notification success';
+
+      // Reset form
+      document.getElementById('contact-form').reset();
+
+      // Hide notification after 5 seconds
+      setTimeout(() => {
+        notification.className = 'form-notification';
+      }, 5000);
+
+    }, function (error) {
+      console.log('FAILED...', error);
+      console.error('EmailJS Error Details:', error.text || error);
+
+      // Show error notification
+      notification.textContent = 'Failed to send message. Please try again or email me directly.';
+      notification.className = 'form-notification error';
+
+      // Hide notification after 5 seconds
+      setTimeout(() => {
+        notification.className = 'form-notification';
+      }, 5000);
+    })
+    .finally(function () {
+      // Re-enable button
+      submitBtn.disabled = false;
+      submitBtn.textContent = originalBtnText;
+    });
+});
