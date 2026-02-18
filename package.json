@@ -1,0 +1,11 @@
+{
+  "name": "cyberfiction-portfolio",
+  "version": "1.0.0",
+  "description": "Portfolio with AI Chatbot",
+  "main": "script.js",
+  "dependencies": {
+    "ai": "^2.2.37",
+    "openai-edge": "^1.2.2",
+    "@supabase/supabase-js": "^2.39.7"
+  }
+}

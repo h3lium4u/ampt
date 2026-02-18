@@ -41,6 +41,30 @@ function scrollToSection(target) {
   }
 }
 
+// Flashlight Cursor Logic
+const flashlight = document.getElementById('flashlight');
+if (flashlight) {
+  document.addEventListener('mousemove', (e) => {
+    gsap.to(flashlight, {
+      x: e.clientX,
+      y: e.clientY,
+      duration: 0.6,
+      ease: "power2.out"
+    });
+  });
+
+  document.addEventListener('mouseenter', () => {
+    gsap.to(flashlight, { opacity: 1, duration: 0.3 });
+  });
+
+  document.addEventListener('mouseleave', () => {
+    gsap.to(flashlight, { opacity: 0, duration: 0.3 });
+  });
+
+  // Initial reveal
+  flashlight.style.opacity = "1";
+}
+
 
 const canvas = document.querySelector("canvas");
 const context = canvas.getContext("2d");
@@ -494,7 +518,7 @@ gsap.fromTo(".hero-content",
   }
 );
 
-gsap.from(".content-left", {
+gsap.from("#page1 .content-left", {
   opacity: 0,
   x: -50,
   duration: 1,
@@ -508,13 +532,28 @@ gsap.from(".content-left", {
   }
 });
 
-gsap.from(".content-right", {
+// Skills Section Right Content (if any)
+gsap.from("#page1 .content-right", {
   opacity: 0,
   x: 50,
   duration: 1,
   ease: "power2.out",
   scrollTrigger: {
-    trigger: "#page2",
+    trigger: "#page1",
+    start: "top center",
+    end: "top top",
+    scroller: "#main",
+    scrub: 1
+  }
+});
+
+gsap.from("#page3 .content-left", {
+  opacity: 0,
+  x: -50,
+  duration: 1,
+  ease: "power2.out",
+  scrollTrigger: {
+    trigger: "#page3",
     start: "top center",
     end: "top top",
     scroller: "#main",
@@ -661,3 +700,144 @@ document.getElementById('contact-form').addEventListener('submit', function (eve
       submitBtn.textContent = originalBtnText;
     });
 });
+
+// Show LinkedIn "Updated Soon" Notice
+function showLinkedInNotice() {
+  const notification = document.getElementById("notification");
+  const originalText = notification.textContent;
+  notification.textContent = "LinkedIn will be updated soon!";
+
+  gsap.to(notification, {
+    autoAlpha: 1,
+    y: 0,
+    duration: 0.5,
+    ease: "power2.out",
+    onComplete: () => {
+      gsap.to(notification, {
+        autoAlpha: 0,
+        y: -20,
+        duration: 0.5,
+        ease: "power2.in",
+        delay: 2,
+        onComplete: () => {
+          // Reset text
+          setTimeout(() => {
+            notification.textContent = originalText;
+          }, 500);
+        }
+      });
+    }
+  });
+}
+
+// Mobile Notice Dismissal
+function dismissMobileNotice() {
+  gsap.to("#mobile-notice", {
+    opacity: 0,
+    duration: 0.5,
+    onComplete: () => {
+      document.getElementById("mobile-notice").style.display = "none";
+      sessionStorage.setItem("mobileNoticeDismissed", "true");
+    }
+  });
+}
+
+// Check if notice should be shown
+document.addEventListener("DOMContentLoaded", () => {
+  if (sessionStorage.getItem("mobileNoticeDismissed") === "true") {
+    const notice = document.getElementById("mobile-notice");
+    if (notice) notice.style.display = "none";
+  }
+});
+
+// ========================================
+// AI CHATBOT LOGIC
+// ========================================
+
+function toggleChat() {
+  const chatWindow = document.getElementById('ai-chat-window');
+  if (chatWindow) {
+    chatWindow.classList.toggle('active');
+    if (chatWindow.classList.contains('active')) {
+      const input = document.getElementById('chat-input');
+      if (input) input.focus();
+    }
+  }
+}
+
+function handleChatKey(event) {
+  if (event.key === 'Enter') {
+    sendChatMessage();
+  }
+}
+
+async function sendChatMessage() {
+  const input = document.getElementById('chat-input');
+  if (!input) return;
+
+  const message = input.value.trim();
+  if (!message) return;
+
+  // Add User Message to UI
+  appendMessage('USER', message, 'user-msg');
+  input.value = '';
+
+  // Show AI "Thinking" state
+  const thinkingId = appendMessage('RESUME_AI', 'SCANNING_KNOWLEDGE_BASE...', 'system-msg');
+
+  try {
+    // Simulated delay for "Scanning" animation
+    await new Promise(resolve => setTimeout(resolve, 1500));
+
+    removeMessage(thinkingId);
+
+    // DEMO RESPONSE (Since backend requires deployment)
+    const mockResponse = "I've detected a query about Faizaan. As an AI trained on his data, I can confirm he is a skilled developer specializing in Python, FastAPI, and Android development. To get real-time answers from my brain, please complete the Vercel/Supabase deployment!";
+
+    appendMessage('RESUME_AI', mockResponse, 'ai-msg', true);
+
+  } catch (error) {
+    console.error('Chat Error:', error);
+    removeMessage(thinkingId);
+    appendMessage('SYSTEM', 'ERROR: SECURE_CONNECTION_INTERRUPTED. PLEASE_RETRY.', 'system-msg');
+  }
+}
+
+function appendMessage(origin, content, className, animate = false) {
+  const chatMessages = document.getElementById('chat-messages');
+  if (!chatMessages) return null;
+
+  const msgDiv = document.createElement('div');
+  const id = 'msg-' + Date.now() + Math.random().toString(36).substr(2, 9);
+  msgDiv.id = id;
+  msgDiv.className = `message ${className}`;
+
+  msgDiv.innerHTML = `
+    <span class="msg-origin">[${origin}]</span>
+    <span class="msg-content">${animate ? '' : content}</span>
+  `;
+
+  chatMessages.appendChild(msgDiv);
+  chatMessages.scrollTop = chatMessages.scrollHeight;
+
+  if (animate) {
+    typeWriter(msgDiv.querySelector('.msg-content'), content);
+  }
+
+  return id;
+}
+
+function removeMessage(id) {
+  const msg = document.getElementById(id);
+  if (msg) msg.remove();
+}
+
+function typeWriter(element, text, i = 0) {
+  if (i < text.length) {
+    element.innerHTML += text.charAt(i);
+    i++;
+    const chatMessages = document.getElementById('chat-messages');
+    if (chatMessages) chatMessages.scrollTop = chatMessages.scrollHeight;
+    setTimeout(() => typeWriter(element, text, i), 15);
+  }
+}

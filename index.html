@@ -15,6 +15,21 @@
 
 <body>
     <div id="notification" class="notification">Email copied to clipboard!</div>
+    <div id="flashlight"></div>
+
+    <!-- Vertical Social HUD -->
+    <div class="social-hud">
+        <div class="hud-line-v"></div>
+        <div class="social-icons-v">
+            <a href="https://github.com/h3lium4u" target="_blank" title="GitHub"><i class="fa-brands fa-github"></i></a>
+            <a href="javascript:void(0)" onclick="showLinkedInNotice()" title="LinkedIn"><i
+                    class="fa-brands fa-linkedin"></i></a>
+            <a href="https://www.instagram.com/0utcast.fizz/" target="_blank" title="Instagram"><i
+                    class="fa-brands fa-instagram"></i></a>
+            <a href="https://twitter.com" target="_blank" title="X (Twitter)"><i class="fa-brands fa-x-twitter"></i></a>
+        </div>
+        <div class="hud-label-v">SOCIAL_CONNECT</div>
+    </div>
     <!-- Premium Glassmorphism Navigation -->
     <nav id="nav">
         <div class="nav-logo">Faizaan</div>
@@ -39,6 +54,29 @@
                 <h1 class="hero-title">Hi, I'm Faizaan</h1>
                 <p class="hero-subtitle">A Developer Dedicated to Crafting Secure, Scalable, Modern solutions</p>
             </div>
+
+            <!-- Hero Scanner -->
+            <div class="hero-scanner">
+                <div class="scanner-line"></div>
+                <div class="scanner-text">SCANNING_ENVIRONMENT...</div>
+            </div>
+
+            <!-- System Status Box -->
+            <div class="system-status-box">
+                <div class="box-header">[ SYSTEM_STATUS ]</div>
+                <div class="box-content">
+                    <div class="box-row"><span class="label">DATA_ORIGIN:</span> <span class="value">8.7139° N /
+                            77.7567° E</span></div>
+                    <div class="box-row"><span class="label">CORE_ENGINE:</span> <span class="value">PYTHON_V3.12</span>
+                    </div>
+                    <div class="box-row"><span class="label">STATUS:</span> <span class="value">OPEN_FOR_PROJECTS</span>
+                    </div>
+                    <div class="box-row"><span class="label">UPTIME:</span> <span class="value">24/7_CREATIVITY</span>
+                    </div>
+                </div>
+                <div class="box-footer">TIRUNELVELI_NODE_ACTIVE</div>
+            </div>
+
             <h4 class="scroll-indicator">...SCROLL TO EXPLORE</h4>
         </div>
 
@@ -317,17 +355,10 @@
         <!-- CTA & REASSEMBLY (85-100% scroll) -->
         <div id="page4">
             <div class="cta-content">
-                <h1 class="cta-title">Let's build something exceptional.</h1>
-                <p class="cta-subtitle">
-                    Ready to bring your vision to life with premium craftsmanship.
-                </p>
-                <div class="cta-buttons">
-                    <button class="btn-primary" onclick="scrollToSection('#page2')">View Projects</button>
-                    <button class="btn-secondary" onclick="copyEmail()">Copy Email</button>
-                </div>
-
                 <!-- CONTACT FORM -->
                 <div class="contact-form-wrapper">
+                    <h3 class="section-label contact-label">CONTACT</h3>
+
                     <h2 class="contact-form-title">Get In Touch</h2>
                     <form id="contact-form" class="contact-form">
                         <div class="form-group">
@@ -345,6 +376,15 @@
                     <div id="form-notification" class="form-notification"></div>
                 </div>
 
+                <h1 class="cta-title">Let's build something exceptional.</h1>
+                <p class="cta-subtitle">
+                    Ready to bring your vision to life with premium craftsmanship.
+                </p>
+                <div class="cta-buttons">
+                    <button class="btn-primary" onclick="scrollToSection('#page2')">View Projects</button>
+                    <button class="btn-secondary" onclick="copyEmail()">Copy Email</button>
+                </div>
+
                 <!-- SOCIAL MEDIA ICONS -->
                 <ul class="social-icons">
                     <li><a href="https://www.instagram.com/0utcast.fizz/" target="_blank"><i
@@ -353,6 +393,34 @@
                                 class="fa-brands fa-whatsapp whatsapp"></i></a></li>
                 </ul>
             </div>
+        </div>
+    </div>
+
+    <!-- AI CHAT TERMINAL -->
+    <div id="ai-chat-launcher" class="ai-chat-launcher" onclick="toggleChat()">
+        <i class="fa-solid fa-robot"></i>
+        <div class="launcher-pulse"></div>
+    </div>
+
+    <div id="ai-chat-window" class="ai-chat-window">
+        <div class="chat-header">
+            <div class="header-info">
+                <span class="status-dot"></span>
+                <span class="header-title">RESUME_AI [NODE_01]</span>
+            </div>
+            <button class="chat-close" onclick="toggleChat()"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <div id="chat-messages" class="chat-messages">
+            <div class="message system-msg">
+                <span class="msg-origin">[SYSTEM]</span>
+                <span class="msg-content">Initializing secure connection... Connection established. Ask me anything
+                    about Faizaan's expertise.</span>
+            </div>
+        </div>
+        <div class="chat-input-area">
+            <div class="input-scanner"></div>
+            <input type="text" id="chat-input" placeholder="Enter query..." onkeypress="handleChatKey(event)">
+            <button id="chat-send" onclick="sendChatMessage()"><i class="fa-solid fa-paper-plane"></i></button>
         </div>
     </div>
 
@@ -365,6 +433,16 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/ScrollTrigger.min.js"
         integrity="sha512-AMl4wfwAmDM1lsQvVBBRHYENn1FR8cfOTpt8QVbb/P55mYOdahHD4LmHM1W55pNe3j/3od8ELzPf/8eNkkjISQ=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <!-- Mobile View Recommendation Popup -->
+    <div id="mobile-notice" class="mobile-notice">
+        <div class="notice-content">
+            <i class="fa-solid fa-desktop"></i>
+            <h2>Better on Desktop</h2>
+            <p>For the best experience with smooth animations and layout, please open this portfolio on a desktop
+                device.</p>
+            <button onclick="dismissMobileNotice()">Continue Anyway</button>
+        </div>
+    </div>
     <script src="script.js"></script>
 </body>
 
