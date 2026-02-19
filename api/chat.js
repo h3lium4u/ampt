@@ -66,6 +66,19 @@ export default async function handler(req) {
         const context = documents?.map(doc => doc.content).join('\n') || 'No context found.';
         console.log(`AI_BRAIN: Context found (${documents?.length || 0} chunks).`);
 
+        // 2.5 Log question for training (Async - don't wait for completion to speed up chat)
+        supabase.from('chat_queries').insert({
+            query: lastMessage,
+            context_count: documents?.length || 0,
+            metadata: {
+                timestamp: new Date().toISOString(),
+                model: 'llama-3.1-8b-instant'
+            }
+        }).then(({ error }) => {
+            if (error) console.error('AI_BRAIN: Logging failed:', error.message);
+            else console.log('AI_BRAIN: Question logged for training.');
+        });
+
         // 3. Request Groq
         console.log('AI_BRAIN: Requesting Groq...');
         const groqResponse = await fetch('https://api.groq.com/openai/v1/chat/completions', {
