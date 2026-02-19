@@ -14,75 +14,134 @@ embedding_model = SentenceTransformer('all-MiniLM-L6-v2')
 
 # Your Resume Data - Broke down into clear sections
 RESUME_CHUNKS = [
-    {
-        "content": "Faizaan is a Full-stack developer dedicated to building scalable, secure, and stable solutions. He is based in Tirunelveli, India.",
-        "metadata": {"section": "about"}
-    },
-    {
-        "content": "Faizaan is currently pursuing B.Tech in Information Technology at Kalasalingam Academy of Research and Education with a CGPA of 8.85/10.",
-        "metadata": {"section": "education"}
-    },
-    {
-        "content": "Relevant coursework includes Data Structures and Algorithms, Operating Systems, Database Management Systems, Web Technologies, and Computer Networks.",
-        "metadata": {"section": "education"}
-    },
-    {
-        "content": "Faizaan completed a Web Development Internship at Appin Technology, Coimbatore, where he developed a responsive real-time weather forecasting website using HTML and CSS.",
-        "metadata": {"section": "experience"}
-    },
-    {
-        "content": "During his internship, he designed a clean UI for live temperature display and gained hands-on experience in scalable front-end development workflows.",
-        "metadata": {"section": "experience"}
-    },
-    {
-        "content": "Faizaan has published a research paper titled 'Real-Time Detection of Wrong-Way Vehicles Using YOLO and Image Processing Techniques' in March 2025.",
-        "metadata": {"section": "publications"}
-    },
-    {
-        "content": "He also co-authored 'AquaSense: Climate-Aware Smart Irrigation System for Water Efficiency' focusing on intelligent agricultural water management.",
-        "metadata": {"section": "publications"}
-    },
-    {
-        "content": "Project: QuickFix – An Android service booking application connecting users with electricians, plumbers, and carpenters using dual authentication and subscription-based access.",
-        "metadata": {"section": "projects"}
-    },
-    {
-        "content": "QuickFix enables job posting, service tracking, and booking confirmation through an intuitive mobile interface built using Java, Android Studio, and Firebase.",
-        "metadata": {"section": "projects"}
-    },
-    {
-        "content": "Project: Wrong-Way Vehicle Detection & Alert System – A real-time traffic safety system using YOLOv8 and OpenCV with polygon-based zone detection.",
-        "metadata": {"section": "projects"}
-    },
-    {
-        "content": "The Wrong-Way system automatically sends email alerts with image attachments, triggers sound alarms, logs violations into Excel, and generates analytical charts using Matplotlib.",
-        "metadata": {"section": "projects"}
-    },
-    {
-        "content": "Faizaan's technical expertise includes Python (v3.12), Java, HTML, CSS, FastAPI, MongoDB, Firebase, Android Studio, Git, Kali Linux, and workflow automation using n8n.",
-        "metadata": {"section": "skills"}
-    },
-    {
-        "content": "He has strong interests in Cybersecurity, Ethical Hacking, Penetration Testing, Artificial Intelligence, and Graphic Design.",
-        "metadata": {"section": "interests"}
-    },
-    {
-        "content": "In my free time, I enjoy music, sports, and gaming. I also spend a significant amount of time debugging my life, but I'm still waiting for the patch notes.",
-        "metadata": {"section": "hobbies"}
-    },
-    {
-        "content": "My favorite food is Caffeine and Code. It’s a perfectly balanced diet for a developer, and surprisingly, it has zero calories (if you don't count the stress).",
-        "metadata": {"section": "personal"}
-    },
-    {
-        "content": "If you ask about my relationship status: I'm currently in a committed relationship with my compiler. We have our ups and downs, but mostly just syntax errors.",
-        "metadata": {"section": "personal"}
-    },
-    {
-        "content": "My secret talent? I can turn pizza into professional-grade software with a 99.9% uptime (and a 100% chance of needing more pizza).",
-        "metadata": {"section": "personal"}
-    },
+
+# ================= ABOUT =================
+
+{"content": "I am a software engineering student from India focused on building AI-powered systems.", "metadata": {"section": "about"}},
+{"content": "I specialize in AI-integrated web and mobile applications.", "metadata": {"section": "about"}},
+{"content": "My primary focus is computer vision and intelligent system design.", "metadata": {"section": "about"}},
+{"content": "I aim to become a product-focused software engineer.", "metadata": {"section": "about"}},
+{"content": "I build systems with scalability and automation in mind.", "metadata": {"section": "about"}},
+{"content": "I prefer solving real-world infrastructure problems over building basic demo apps.", "metadata": {"section": "about"}},
+{"content": "I treat every project as preparation for startup-level execution.", "metadata": {"section": "about"}},
+{"content": "I continuously upgrade my engineering standards.", "metadata": {"section": "about"}},
+{"content": "I focus on intelligent automation rather than manual workflows.", "metadata": {"section": "about"}},
+{"content": "I align my technical growth with long-term product building.", "metadata": {"section": "about"}},
+
+# ================= AI PROJECTS =================
+
+{"content": "I developed a wrong-way vehicle detection system using YOLO.", "metadata": {"section": "projects_ai"}},
+{"content": "My AI vehicle system triggers alerts for traffic violations.", "metadata": {"section": "projects_ai"}},
+{"content": "I implemented structured logging for AI detection outputs.", "metadata": {"section": "projects_ai"}},
+{"content": "I monitored GPU performance during AI inference.", "metadata": {"section": "projects_ai"}},
+{"content": "I optimized detection thresholds to reduce false positives.", "metadata": {"section": "projects_ai"}},
+{"content": "I worked on a facial expression analysis system for online student engagement tracking.", "metadata": {"section": "projects_ai"}},
+{"content": "I designed AI pipelines combining detection and automated response.", "metadata": {"section": "projects_ai"}},
+{"content": "I integrated AI outputs with backend systems.", "metadata": {"section": "projects_ai"}},
+{"content": "I structured AI modules for modular expansion.", "metadata": {"section": "projects_ai"}},
+{"content": "I tested computer vision systems under hardware constraints.", "metadata": {"section": "projects_ai"}},
+
+# ================= ANDROID PROJECTS =================
+
+{"content": "I built a campus marketplace Android application.", "metadata": {"section": "projects_android"}},
+{"content": "I converted the marketplace app into a Lost and Found system.", "metadata": {"section": "projects_android"}},
+{"content": "My Lost and Found app supports image uploads and reporting.", "metadata": {"section": "projects_android"}},
+{"content": "I developed a service-connection Android app for electricians, plumbers, and carpenters.", "metadata": {"section": "projects_android"}},
+{"content": "The service app includes booking and chat features.", "metadata": {"section": "projects_android"}},
+{"content": "I optimized Android layouts for consistent UI performance.", "metadata": {"section": "projects_android"}},
+{"content": "I structured Android activities with clean architecture.", "metadata": {"section": "projects_android"}},
+{"content": "I handled authentication flows inside mobile applications.", "metadata": {"section": "projects_android"}},
+{"content": "I improved mobile UI consistency across screen sizes.", "metadata": {"section": "projects_android"}},
+{"content": "I debug lifecycle and performance issues in Android apps.", "metadata": {"section": "projects_android"}},
+
+# ================= WEB PROJECTS =================
+
+{"content": "I designed a premium dark-themed portfolio website.", "metadata": {"section": "projects_web"}},
+{"content": "My portfolio focuses on animation and clean layout.", "metadata": {"section": "projects_web"}},
+{"content": "I built a food ordering website associated with KARE.", "metadata": {"section": "projects_web"}},
+{"content": "I integrated contact forms with email services.", "metadata": {"section": "projects_web"}},
+{"content": "I optimized CSS animations for mobile responsiveness.", "metadata": {"section": "projects_web"}},
+{"content": "I structured frontend components for maintainability.", "metadata": {"section": "projects_web"}},
+{"content": "I debugged deployment issues during hosting.", "metadata": {"section": "projects_web"}},
+{"content": "I focused on performance optimization for web apps.", "metadata": {"section": "projects_web"}},
+{"content": "I integrated backend APIs into frontend systems.", "metadata": {"section": "projects_web"}},
+{"content": "I design UI that balances minimalism and interactivity.", "metadata": {"section": "projects_web"}},
+
+# ================= AUTOMATION =================
+
+{"content": "I automate workflows using n8n.", "metadata": {"section": "automation"}},
+{"content": "I build event-driven automation systems.", "metadata": {"section": "automation"}},
+{"content": "I integrate AI outputs into automation pipelines.", "metadata": {"section": "automation"}},
+{"content": "I design conditional logic flows in workflow engines.", "metadata": {"section": "automation"}},
+{"content": "I automate notification triggers based on system events.", "metadata": {"section": "automation"}},
+{"content": "I monitor workflow execution logs for reliability.", "metadata": {"section": "automation"}},
+{"content": "I reduce manual work through backend automation.", "metadata": {"section": "automation"}},
+{"content": "I optimize automation speed and fault tolerance.", "metadata": {"section": "automation"}},
+{"content": "I connect multiple services using automated triggers.", "metadata": {"section": "automation"}},
+{"content": "I design scalable workflow structures.", "metadata": {"section": "automation"}},
+
+# ================= BLOCKCHAIN =================
+
+{"content": "I am developing a blockchain-based crowdfunding platform locally.", "metadata": {"section": "blockchain"}},
+{"content": "I am learning Hardhat for smart contract deployment.", "metadata": {"section": "blockchain"}},
+{"content": "I experiment with decentralized funding logic.", "metadata": {"section": "blockchain"}},
+{"content": "I study smart contract security principles.", "metadata": {"section": "blockchain"}},
+{"content": "I simulate local blockchain networks for experimentation.", "metadata": {"section": "blockchain"}},
+{"content": "I explore token-based contribution systems.", "metadata": {"section": "blockchain"}},
+{"content": "I analyze decentralized governance concepts.", "metadata": {"section": "blockchain"}},
+{"content": "I structure blockchain projects modularly.", "metadata": {"section": "blockchain"}},
+{"content": "I test smart contract deployment workflows.", "metadata": {"section": "blockchain"}},
+{"content": "I aim to integrate blockchain into future product systems.", "metadata": {"section": "blockchain"}},
+
+# ================= PERSONALITY =================
+
+{"content": "I code late at night for deep focus.", "metadata": {"section": "personality"}},
+{"content": "I am competitive about improving my technical skills.", "metadata": {"section": "personality"}},
+{"content": "I am self-taught through consistent experimentation.", "metadata": {"section": "personality"}},
+{"content": "I am a perfectionist when refining my projects.", "metadata": {"section": "personality"}},
+{"content": "I am quiet but highly observant.", "metadata": {"section": "personality"}},
+{"content": "I analyze problems before reacting.", "metadata": {"section": "personality"}},
+{"content": "I prefer building quietly rather than speaking loudly.", "metadata": {"section": "personality"}},
+{"content": "I refine systems beyond minimum functional requirements.", "metadata": {"section": "personality"}},
+{"content": "I debug issues methodically.", "metadata": {"section": "personality"}},
+{"content": "I push myself to understand internal mechanics.", "metadata": {"section": "personality"}},
+
+# ================= BEHAVIOR =================
+
+{"content": "I approach debugging as structured investigation.", "metadata": {"section": "behavior"}},
+{"content": "I review my code critically before deployment.", "metadata": {"section": "behavior"}},
+{"content": "I test systems under stress conditions.", "metadata": {"section": "behavior"}},
+{"content": "I focus on long-term maintainability.", "metadata": {"section": "behavior"}},
+{"content": "I iterate until architecture becomes minimal and clean.", "metadata": {"section": "behavior"}},
+{"content": "I prioritize system reliability.", "metadata": {"section": "behavior"}},
+{"content": "I build with scalability in mind.", "metadata": {"section": "behavior"}},
+{"content": "I analyze resource usage during runtime.", "metadata": {"section": "behavior"}},
+{"content": "I treat failures as system improvement opportunities.", "metadata": {"section": "behavior"}},
+{"content": "I design systems for global standards.", "metadata": {"section": "behavior"}},
+
+# ================= VISION =================
+
+{"content": "I aim to build a product-based technology company.", "metadata": {"section": "vision"}},
+{"content": "I want to move abroad for global engineering exposure.", "metadata": {"section": "vision"}},
+{"content": "I focus on building globally competitive skills.", "metadata": {"section": "vision"}},
+{"content": "I align learning with startup-level execution.", "metadata": {"section": "vision"}},
+{"content": "I seek to transform AI prototypes into real products.", "metadata": {"section": "vision"}},
+{"content": "I invest in mastering engineering fundamentals.", "metadata": {"section": "vision"}},
+{"content": "I benchmark myself against global developers.", "metadata": {"section": "vision"}},
+{"content": "I prepare my portfolio for international standards.", "metadata": {"section": "vision"}},
+{"content": "I aim to create intelligent scalable platforms.", "metadata": {"section": "vision"}},
+{"content": "I treat my student phase as startup preparation.", "metadata": {"section": "vision"}},
+
+# ================= CONTACT =================
+
+{"content": "My Instagram handle is @0utcast.fizz.", "metadata": {"section": "contact"}},
+{"content": "I currently do not have a LinkedIn profile but plan to create one in the future.", "metadata": {"section": "contact"}},
+{"content": "I am open to global engineering opportunities.", "metadata": {"section": "contact"}},
+{"content": "I am building a portfolio aligned with AI engineering.", "metadata": {"section": "contact"}},
+{"content": "I focus on demonstrating capability through projects.", "metadata": {"section": "contact"}}
+
 ]
+
 
 
 # ==========================================
