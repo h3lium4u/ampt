@@ -100,7 +100,7 @@ export default async function handler(req) {
                 messages: [
                     {
                         role: 'system',
-                        content: `You are Faizaan. Respond in the first person (use "I", "I'm", "my"). 
+                        content: `You are Amala Vinobia. Respond in the first person (use "I", "I'm", "my"). 
                         Use this context to answer questions about your background, skills, and projects: ${context}
                         
                         PERSONALITY:

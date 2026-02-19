@@ -94,6 +94,11 @@ def get_embedding(text: str):
 def seed_database():
     print(f"Starting ingestion of {len(RESUME_CHUNKS)} resume chunks...")
     
+    # 0. Clear existing data to avoid duplicates/stale data
+    print("Clearing old resume data...")
+    supabase.table("documents").delete().neq("id", 0).execute() # Hack to delete all rows
+
+    
     for chunk in RESUME_CHUNKS:
         print(f"Processing: {chunk['metadata']['section']} section...")
         
