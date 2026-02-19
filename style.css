@@ -13,7 +13,7 @@
     left: 0;
     width: 400px;
     height: 400px;
-    background: radial-gradient(circle, rgba(0, 214, 255, 0.15) 0%, transparent 70%);
+    background: radial-gradient(circle, rgba(255, 0, 64, 0.15) 0%, transparent 70%);
     pointer-events: none;
     z-index: 10001;
     transform: translate(-50%, -50%);
@@ -44,8 +44,8 @@
 .hud-line-v {
     width: 1px;
     height: 100px;
-    background: linear-gradient(180deg, #00D6FF, transparent);
-    box-shadow: 0 0 10px rgba(0, 214, 255, 0.3);
+    background: linear-gradient(180deg, #E0E0E0, #E056FD, transparent);
+    box-shadow: 0 0 10px rgba(255, 0, 64, 0.3);
 }
 
 .social-icons-v {
@@ -55,7 +55,7 @@
 }
 
 .social-icons-v a {
-    color: rgba(255, 255, 255, 0.4);
+    color: rgba(200, 200, 200, 0.6); /* Silver Text */
     font-size: 18px;
     transition: all 0.3s ease;
     display: flex;
@@ -64,8 +64,8 @@
 }
 
 .social-icons-v a:hover {
-    color: #00D6FF;
-    text-shadow: 0 0 15px rgba(0, 214, 255, 0.8);
+    color: #FF0040;
+    text-shadow: 0 0 15px rgba(255, 0, 64, 0.8);
     transform: scale(1.2);
 }
 
@@ -75,7 +75,7 @@
     font-family: monospace;
     font-size: 9px;
     letter-spacing: 3px;
-    color: rgba(0, 214, 255, 0.4);
+    color: rgba(255, 0, 64, 0.4);
     margin-top: 15px;
 }
 
@@ -173,7 +173,7 @@ body {
     left: 0;
     width: 0;
     height: 1px;
-    background: linear-gradient(90deg, #0050FF, #00D6FF);
+    background: linear-gradient(90deg, #FFFFFF, #FF0040);
     transition: width 0.3s ease;
 }
 
@@ -184,19 +184,19 @@ body {
 .nav-cta {
     padding: 10px 24px;
     border-radius: 50px;
-    background: linear-gradient(135deg, #0050FF 0%, #00D6FF 100%);
+    background: linear-gradient(135deg, #CC0000 0%, #FF0040 100%);
     color: #fff;
-    border: 1px solid rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(224, 224, 224, 0.4); /* Silver Accent */
     font-size: 14px;
     font-weight: 600;
     cursor: pointer;
-    box-shadow: 0 4px 20px rgba(0, 80, 255, 0.25);
+    box-shadow: 0 4px 20px rgba(255, 255, 255, 0.25);
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     letter-spacing: -0.2px;
 }
 
 .nav-cta:hover {
-    box-shadow: 0 6px 30px rgba(0, 214, 255, 0.45);
+    box-shadow: 0 6px 30px rgba(255, 0, 64, 0.45);
     transform: translateY(-2px);
     border-color: rgba(255, 255, 255, 0.3);
 }
@@ -220,7 +220,7 @@ body {
     position: absolute;
     width: 1000px;
     height: 1000px;
-    background: radial-gradient(circle, rgba(0, 80, 255, 0.08) 0%, transparent 70%);
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.08) 0%, transparent 70%);
     top: 15%;
     left: 50%;
     transform: translateX(-50%);
@@ -240,6 +240,8 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+    z-index: 20;
+    /* Above canvas */
 }
 
 #page3 {
@@ -252,13 +254,15 @@ body {
     align-items: center;
     justify-content: space-between;
     padding: 0 10%;
+    z-index: 20;
+    /* Above canvas */
 }
 
 /* Global Canvas Styling */
 canvas {
     position: relative;
-    z-index: 5 !important;
-    /* Above truck, below text */
+    z-index: 1 !important;
+    /* Lowered to sit behind content */
     pointer-events: none;
 }
 
@@ -296,7 +300,7 @@ canvas {
     line-height: 1.1;
     letter-spacing: -2px;
     margin-bottom: 20px;
-    background: linear-gradient(180deg, #FFFFFF 0%, #00D6FF 100%);
+    background: linear-gradient(180deg, #FFFFFF 0%, #FF0040 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -326,7 +330,7 @@ canvas {
     font-size: 12px;
     font-weight: 500;
     letter-spacing: 2px;
-    color: rgba(255, 255, 255, 0.4);
+    color: rgba(200, 200, 200, 0.6); /* Silver Text */
     z-index: 10;
 }
 
@@ -346,8 +350,8 @@ canvas {
     position: absolute;
     width: 100%;
     height: 1px;
-    background: linear-gradient(90deg, transparent, #00D6FF, transparent);
-    box-shadow: 0 0 15px rgba(0, 214, 255, 0.5);
+    background: linear-gradient(90deg, transparent, #FF0040, transparent);
+    box-shadow: 0 0 15px rgba(255, 0, 64, 0.5);
     animation: scanVertical 6s ease-in-out infinite;
 }
 
@@ -356,9 +360,9 @@ canvas {
     left: -100px;
     font-family: monospace;
     font-size: 10px;
-    color: rgba(0, 214, 255, 0.6);
+    color: rgba(255, 0, 64, 0.6);
     letter-spacing: 1px;
-    text-shadow: 0 0 5px rgba(0, 214, 255, 0.3);
+    text-shadow: 0 0 5px rgba(255, 0, 64, 0.8), 0 0 20px rgba(255, 64, 100, 0.4); /* Red + Purple Glow */
     animation: scanVertical 6s ease-in-out infinite;
 }
 
@@ -398,15 +402,15 @@ canvas {
     top: 50%;
     right: 6%;
     transform: translateY(-50%);
-    background: rgba(0, 214, 255, 0.03);
+    background: rgba(255, 0, 64, 0.03);
     backdrop-filter: blur(10px);
-    border: 1px solid rgba(0, 214, 255, 0.2);
+    border: 1px solid rgba(224, 224, 224, 0.4); /* Silver Border */
     padding: 30px;
     font-family: 'monospace';
     border-radius: 4px;
     z-index: 10;
     width: 350px;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.4), inset 0 0 10px rgba(0, 214, 255, 0.05);
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.4), inset 0 0 10px rgba(255, 0, 64, 0.05);
     animation: boxFloat 4s ease-in-out infinite;
     transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     cursor: crosshair;
@@ -414,9 +418,9 @@ canvas {
 
 .system-status-box:hover {
     transform: translateY(-50%) scale(1.1);
-    background: rgba(0, 214, 255, 0.08);
-    border-color: rgba(0, 214, 255, 0.5);
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6), 0 0 20px rgba(0, 214, 255, 0.2);
+    background: rgba(255, 0, 64, 0.08);
+    border-color: rgba(255, 0, 64, 0.5);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6), 0 0 20px rgba(255, 0, 64, 0.2);
 }
 
 .system-status-box::before {
@@ -426,8 +430,8 @@ canvas {
     left: -2px;
     width: 25px;
     height: 25px;
-    border-top: 2px solid #00D6FF;
-    border-left: 2px solid #00D6FF;
+    border-top: 2px solid #FF0040;
+    border-left: 2px solid #FF0040;
 }
 
 .system-status-box::after {
@@ -437,16 +441,16 @@ canvas {
     right: -2px;
     width: 25px;
     height: 25px;
-    border-bottom: 2px solid #00D6FF;
-    border-right: 2px solid #00D6FF;
+    border-bottom: 2px solid #FF0040;
+    border-right: 2px solid #FF0040;
 }
 
 .box-header {
     font-size: 13px;
     letter-spacing: 2px;
-    color: #00D6FF;
+    color: #FF0040;
     margin-bottom: 20px;
-    border-bottom: 1px solid rgba(0, 214, 255, 0.1);
+    border-bottom: 1px solid rgba(255, 0, 64, 0.1);
     padding-bottom: 10px;
     font-weight: bold;
 }
@@ -464,14 +468,14 @@ canvas {
 }
 
 .box-row .value {
-    color: #00D6FF;
-    text-shadow: 0 0 5px rgba(0, 214, 255, 0.5);
+    color: #FF0040;
+    text-shadow: 0 0 5px rgba(255, 0, 64, 0.5);
 }
 
 .box-footer {
     margin-top: 20px;
     font-size: 10px;
-    color: rgba(0, 214, 255, 0.4);
+    color: rgba(255, 0, 64, 0.4);
     text-align: right;
     letter-spacing: 2px;
 }
@@ -524,7 +528,7 @@ canvas {
     font-weight: 600;
     letter-spacing: 2px;
     text-transform: uppercase;
-    color: rgba(0, 214, 255, 0.7);
+    color: rgba(255, 0, 64, 0.7);
     margin-bottom: 24px;
 }
 
@@ -582,19 +586,19 @@ canvas {
 .btn-primary {
     padding: 16px 40px;
     border-radius: 50px;
-    background: linear-gradient(135deg, #0050FF 0%, #00D6FF 100%);
+    background: linear-gradient(135deg, #CC0000 0%, #FF0040 100%);
     color: #fff;
-    border: 1px solid rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(224, 224, 224, 0.4); /* Silver Accent */
     font-size: 16px;
     font-weight: 600;
     cursor: pointer;
-    box-shadow: 0 8px 30px rgba(0, 80, 255, 0.3);
+    box-shadow: 0 8px 30px rgba(255, 255, 255, 0.4), 0 0 20px rgba(255, 64, 100, 0.3);
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     letter-spacing: -0.3px;
 }
 
 .btn-primary:hover {
-    box-shadow: 0 12px 40px rgba(0, 214, 255, 0.5);
+    box-shadow: 0 12px 40px rgba(255, 0, 64, 0.5);
     transform: translateY(-3px);
 }
 
@@ -673,7 +677,7 @@ canvas {
     margin-left: -30px;
     position: absolute;
     font-weight: 700;
-    color: #00D6FF;
+    color: #FF0040;
     /* Accent color */
     white-space: nowrap;
     line-height: 1.2;
@@ -832,7 +836,7 @@ canvas {
     font-weight: 800;
     font-size: 10px;
     letter-spacing: 2px;
-    color: rgba(255, 255, 255, 0.4);
+    color: rgba(200, 200, 200, 0.6); /* Silver Text */
     margin: 0;
     text-align: center;
 }
@@ -1188,7 +1192,7 @@ canvas {
     flex-direction: column;
     justify-content: center;
     padding: 0;
-    background: radial-gradient(circle at 50% 50%, rgba(0, 80, 255, 0.05) 0%, transparent 70%);
+    background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.05) 0%, transparent 70%);
 }
 
 .projects-section .section-label {
@@ -1243,9 +1247,9 @@ canvas {
 
 .project-card:hover {
     background: rgba(255, 255, 255, 0.05);
-    border-color: rgba(0, 214, 255, 0.5);
+    border-color: rgba(255, 0, 64, 0.5);
     transform: translateY(-15px) scale(1.02);
-    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5), 0 0 20px rgba(0, 214, 255, 0.1);
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5), 0 0 20px rgba(255, 0, 64, 0.1);
 }
 
 .project-header {
@@ -1256,15 +1260,15 @@ canvas {
 
 .project-icon {
     font-size: 26px;
-    color: #00D6FF;
-    background: linear-gradient(135deg, rgba(0, 80, 255, 0.2) 0%, rgba(0, 214, 255, 0.2) 100%);
+    color: #FF0040;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 0, 64, 0.2) 100%);
     width: 60px;
     height: 60px;
     display: flex;
     align-items: center;
     justify-content: center;
     border-radius: 16px;
-    box-shadow: inset 0 0 10px rgba(0, 214, 255, 0.2);
+    box-shadow: inset 0 0 10px rgba(255, 0, 64, 0.2);
 }
 
 .project-card h2 {
@@ -1277,7 +1281,7 @@ canvas {
 .project-card h3 {
     font-size: 14px;
     font-weight: 700;
-    color: #00D6FF;
+    color: #FF0040;
     text-transform: uppercase;
     letter-spacing: 1.5px;
 }
@@ -1304,7 +1308,7 @@ canvas {
     font-weight: 900;
     position: absolute;
     left: 0;
-    color: #00D6FF;
+    color: #FF0040;
     font-size: 12px;
 }
 
@@ -1494,104 +1498,7 @@ canvas {
     animation: truck 4s 0.001s ease infinite;
 }
 
-.truck:before {
-    animation: wind 1.5s 0.000s ease infinite;
-}
 
-
-@keyframes tree {
-    0% {
-        transform: translate(1350px);
-    }
-
-    50% {}
-
-    100% {
-        transform: translate(-50px);
-    }
-}
-
-@keyframes tree2 {
-    0% {
-        transform: translate(650px);
-    }
-
-    50% {}
-
-    100% {
-        transform: translate(-50px);
-    }
-}
-
-@keyframes tree3 {
-    0% {
-        transform: translate(2750px);
-    }
-
-    50% {}
-
-    100% {
-        transform: translate(-50px);
-    }
-}
-
-@keyframes rock {
-    0% {
-        right: -200px;
-    }
-
-    100% {
-        right: 2000px;
-    }
-}
-
-@keyframes truck {
-    0% {}
-
-    6% {
-        transform: translateY(0px);
-    }
-
-    7% {
-        transform: translateY(-6px);
-    }
-
-    9% {
-        transform: translateY(0px);
-    }
-
-    10% {
-        transform: translateY(-1px);
-    }
-
-    11% {
-        transform: translateY(0px);
-    }
-
-    100% {}
-}
-
-@keyframes wind {
-    0% {}
-
-    50% {
-        transform: translateY(3px)
-    }
-
-    100% {}
-}
-
-@keyframes mtn {
-    100% {
-        transform: translateX(-3500px) rotate(130deg);
-    }
-}
-
-@keyframes hill {
-    100% {
-        transform: translateX(-3500px);
-    }
-}
 
 /* ========================================
    NOTIFICATION TOAST
@@ -1600,14 +1507,14 @@ canvas {
     position: fixed;
     top: 20px;
     right: 20px;
-    background: linear-gradient(135deg, #0050FF 0%, #00D6FF 100%);
+    background: linear-gradient(135deg, #CC0000 0%, #FF0040 100%);
     color: #fff;
     padding: 12px 24px;
     border-radius: 8px;
     font-size: 14px;
     font-weight: 600;
     z-index: 10000;
-    box-shadow: 0 4px 20px rgba(0, 80, 255, 0.3);
+    box-shadow: 0 4px 20px rgba(255, 255, 255, 0.3);
     opacity: 0;
     visibility: hidden;
     transform: translateY(-20px);
@@ -1687,7 +1594,7 @@ canvas {
     margin-left: -30px;
     position: absolute;
     font-weight: 700;
-    color: #00D6FF;
+    color: #FF0040;
     white-space: nowrap;
     line-height: 1.2;
 }
@@ -1756,14 +1663,14 @@ canvas {
 
 .form-group input::placeholder,
 .form-group textarea::placeholder {
-    color: rgba(255, 255, 255, 0.4);
+    color: rgba(200, 200, 200, 0.6); /* Silver Text */
 }
 
 .form-group input:focus,
 .form-group textarea:focus {
     background: rgba(255, 255, 255, 0.05);
-    border-color: rgba(0, 214, 255, 0.5);
-    box-shadow: 0 0 20px rgba(0, 214, 255, 0.1);
+    border-color: rgba(255, 0, 64, 0.5);
+    box-shadow: 0 0 20px rgba(255, 0, 64, 0.1);
 }
 
 .form-group textarea {
@@ -1774,20 +1681,20 @@ canvas {
 .btn-submit {
     padding: 16px 40px;
     border-radius: 50px;
-    background: linear-gradient(135deg, #0050FF 0%, #00D6FF 100%);
+    background: linear-gradient(135deg, #CC0000 0%, #FF0040 100%);
     color: #fff;
-    border: 1px solid rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(224, 224, 224, 0.4); /* Silver Accent */
     font-size: 16px;
     font-weight: 600;
     cursor: pointer;
-    box-shadow: 0 8px 30px rgba(0, 80, 255, 0.3);
+    box-shadow: 0 8px 30px rgba(255, 255, 255, 0.4), 0 0 20px rgba(255, 64, 100, 0.3);
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     letter-spacing: -0.3px;
     font-family: 'Inter', sans-serif;
 }
 
 .btn-submit:hover {
-    box-shadow: 0 12px 40px rgba(0, 214, 255, 0.5);
+    box-shadow: 0 12px 40px rgba(255, 0, 64, 0.5);
     transform: translateY(-3px);
 }
 
@@ -1877,7 +1784,7 @@ canvas {
 
     .notice-content i {
         font-size: 48px;
-        color: #00D6FF;
+        color: #FF0040;
         margin-bottom: 20px;
     }
 
@@ -1898,7 +1805,7 @@ canvas {
     .notice-content button {
         padding: 12px 30px;
         border-radius: 50px;
-        background: linear-gradient(135deg, #0050FF 0%, #00D6FF 100%);
+        background: linear-gradient(135deg, #CC0000 0%, #FF0040 100%);
         color: #fff;
         border: none;
         font-weight: 600;
@@ -2050,7 +1957,7 @@ canvas {
     right: 30px;
     width: 60px;
     height: 60px;
-    background: linear-gradient(135deg, #0050FF 0%, #00D6FF 100%);
+    background: linear-gradient(135deg, #CC0000 0%, #FF0040 100%);
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -2059,13 +1966,13 @@ canvas {
     font-size: 24px;
     cursor: pointer;
     z-index: 10002;
-    box-shadow: 0 0 20px rgba(0, 214, 255, 0.4);
+    box-shadow: 0 0 20px rgba(255, 0, 64, 0.4);
     transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 .ai-chat-launcher:hover {
     transform: scale(1.1) rotate(15deg);
-    box-shadow: 0 0 30px rgba(0, 214, 255, 0.6);
+    box-shadow: 0 0 30px rgba(255, 0, 64, 0.6);
 }
 
 .launcher-pulse {
@@ -2073,7 +1980,7 @@ canvas {
     width: 100%;
     height: 100%;
     border-radius: 50%;
-    background: rgba(0, 214, 255, 0.4);
+    background: rgba(255, 0, 64, 0.4);
     animation: launcherPulse 2s infinite;
     z-index: -1;
 }
@@ -2098,12 +2005,12 @@ canvas {
     height: 500px;
     background: rgba(5, 5, 5, 0.85);
     backdrop-filter: blur(20px);
-    border: 1px solid rgba(0, 214, 255, 0.2);
+    border: 1px solid rgba(224, 224, 224, 0.4); /* Silver Border */
     border-radius: 12px;
     display: flex;
     flex-direction: column;
     z-index: 10002;
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), 0 0 20px rgba(0, 214, 255, 0.1);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), 0 0 20px rgba(255, 0, 64, 0.1);
     opacity: 0;
     visibility: hidden;
     transform: translateY(20px) scale(0.95);
@@ -2120,7 +2027,7 @@ canvas {
 .chat-header {
     padding: 15px 20px;
     background: rgba(255, 255, 255, 0.03);
-    border-bottom: 1px solid rgba(0, 214, 255, 0.1);
+    border-bottom: 1px solid rgba(255, 0, 64, 0.1);
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -2157,13 +2064,13 @@ canvas {
     font-family: monospace;
     font-size: 11px;
     letter-spacing: 2px;
-    color: rgba(0, 214, 255, 0.8);
+    color: rgba(255, 0, 64, 0.8);
 }
 
 .chat-close {
     background: transparent;
     border: none;
-    color: rgba(255, 255, 255, 0.4);
+    color: rgba(200, 200, 200, 0.6); /* Silver Text */
     cursor: pointer;
     font-size: 16px;
     transition: color 0.3s;
@@ -2181,7 +2088,7 @@ canvas {
     flex-direction: column;
     gap: 15px;
     scrollbar-width: thin;
-    scrollbar-color: rgba(0, 214, 255, 0.2) transparent;
+    scrollbar-color: rgba(255, 0, 64, 0.2) transparent;
 }
 
 .chat-messages::-webkit-scrollbar {
@@ -2189,7 +2096,7 @@ canvas {
 }
 
 .chat-messages::-webkit-scrollbar-thumb {
-    background: rgba(0, 214, 255, 0.2);
+    background: rgba(255, 0, 64, 0.2);
     border-radius: 10px;
 }
 
@@ -2214,12 +2121,12 @@ canvas {
 }
 
 .system-msg .msg-content {
-    color: rgba(0, 214, 255, 0.9);
+    color: rgba(255, 0, 64, 0.9);
     font-family: monospace;
 }
 
 .system-msg .msg-origin {
-    color: #00D6FF;
+    color: #FF0040;
 }
 
 .user-msg {
@@ -2227,10 +2134,10 @@ canvas {
 }
 
 .user-msg .msg-content {
-    background: rgba(0, 80, 255, 0.2);
+    background: rgba(255, 255, 255, 0.2);
     padding: 10px 15px;
     border-radius: 15px 15px 2px 15px;
-    border: 1px solid rgba(0, 214, 255, 0.1);
+    border: 1px solid rgba(255, 0, 64, 0.1);
     color: white;
 }
 
@@ -2252,13 +2159,13 @@ canvas {
 }
 
 .ai-msg .msg-origin {
-    color: #00D6FF;
+    color: #FF0040;
 }
 
 .chat-input-area {
     padding: 15px 20px;
     background: rgba(255, 255, 255, 0.02);
-    border-top: 1px solid rgba(0, 214, 255, 0.1);
+    border-top: 1px solid rgba(255, 0, 64, 0.1);
     display: flex;
     gap: 10px;
     position: relative;
@@ -2270,8 +2177,8 @@ canvas {
     left: 0;
     width: 100%;
     height: 1px;
-    background: linear-gradient(90deg, transparent, #00D6FF, transparent);
-    box-shadow: 0 0 10px rgba(0, 214, 255, 0.4);
+    background: linear-gradient(90deg, transparent, #FF0040, transparent);
+    box-shadow: 0 0 10px rgba(255, 0, 64, 0.4);
     animation: inputScan 4s linear infinite;
 }
 
@@ -2298,11 +2205,11 @@ canvas {
 }
 
 #chat-input:focus {
-    border-color: rgba(0, 214, 255, 0.5);
+    border-color: rgba(255, 0, 64, 0.5);
 }
 
 #chat-send {
-    background: #00D6FF;
+    background: #FF0040;
     border: none;
     border-radius: 4px;
     width: 35px;
@@ -2312,8 +2219,8 @@ canvas {
 }
 
 #chat-send:hover {
-    background: #0050FF;
-    box-shadow: 0 0 15px rgba(0, 214, 255, 0.4);
+    background: #FFFFFF;
+    box-shadow: 0 0 15px rgba(255, 0, 64, 0.4);
 }
 
 @media (max-width: 480px) {

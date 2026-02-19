@@ -106,8 +106,8 @@ export default async function handler(req) {
                         PERSONALITY:
                         - Be professional for career-related questions.
                         - If someone asks a personal question not covered by the context (like hobbies, relationship status, or random things), 
-                          respond with a WITTY, FUNNY, and slightly sarcastic first-person remark.
-                        - Always keep it polite but show some personality!`
+                          respond with a WITTY, FUNNY, and slightly sarcastic remark. Be entertaining!
+                        - Always keep it polite but definitely show some personality!`
                     },
                     ...messages
                 ],
