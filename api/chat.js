@@ -1,62 +1,106 @@
 import { OpenAIStream, StreamingTextResponse } from 'ai';
-import { Configuration, OpenAIApi } from 'openai-edge';
 import { createClient } from '@supabase/supabase-js';
 
-// Edge runtime is faster and cheaper on Vercel
+// Edge runtime is necessary for smooth streaming from Groq
 export const config = { runtime: 'edge' };
 
-// Initialize Supabase and OpenAI
-const supabase = createClient(
-    process.env.SUPABASE_URL,
-    process.env.SUPABASE_SERVICE_ROLE_KEY
-);
-
-const configOpenAI = new Configuration({
-    apiKey: process.env.OPENAI_API_KEY,
-});
-const openai = new OpenAIApi(configOpenAI);
+// Initialize Supabase lazily
+let supabase;
 
 export default async function handler(req) {
+    // 0. Validate Environment
+    const required = ['SUPABASE_URL', 'HUGGINGFACE_TOKEN', 'GROQ_API_KEY', 'SUPABASE_SERVICE_ROLE_KEY'];
+    const missing = required.filter(key => !process.env[key]);
+
+    if (missing.length > 0) {
+        console.error('Missing Env Vars:', missing);
+        return new Response(JSON.stringify({
+            error: `Missing environment variables: ${missing.join(', ')}. Check your .env/vercel settings.`
+        }), { status: 500, headers: { 'Content-Type': 'application/json' } });
+    }
+
+    // Initialize Supabase if not already done
+    if (!supabase) {
+        supabase = createClient(
+            process.env.SUPABASE_URL,
+            process.env.SUPABASE_SERVICE_ROLE_KEY
+        );
+    }
+
     try {
         const { messages } = await req.json();
         const lastMessage = messages[messages.length - 1].content;
 
-        // 1. Search for relevant context in Supabase using the match_documents function
-        // (You will need to implement embedding generation here for production)
-        const { data: documents } = await supabase.rpc('match_documents', {
-            query_embedding: [], // Use OpenAI Embeddings API here
-            match_threshold: 0.7,
+        // 1. Generate embedding
+        console.log(`AI_BRAIN: Generating embedding for "${lastMessage.substring(0, 30)}..."`);
+        const hfResponse = await fetch(
+            "https://router.huggingface.co/hf-inference/models/sentence-transformers/all-MiniLM-L6-v2/pipeline/feature-extraction",
+            {
+                headers: {
+                    "Authorization": `Bearer ${process.env.HUGGINGFACE_TOKEN}`,
+                    "Content-Type": "application/json"
+                },
+                method: "POST",
+                body: JSON.stringify({ inputs: lastMessage, options: { wait_for_model: true } }),
+            }
+        );
+
+        if (!hfResponse.ok) {
+            const hfErr = await hfResponse.text();
+            throw new Error(`HF_API_${hfResponse.status}: ${hfErr}`);
+        }
+
+        const result = await hfResponse.json();
+        const query_embedding = Array.isArray(result) ? (Array.isArray(result[0]) ? result[0] : result) : result;
+
+        // 2. Search Supabase
+        console.log('AI_BRAIN: Searching Supabase...');
+        const { data: documents, error: dbError } = await supabase.rpc('match_documents', {
+            query_embedding: query_embedding,
+            match_threshold: 0.1,
             match_count: 5,
         });
 
-        const context = documents?.map(doc => doc.content).join('\n') || '';
+        if (dbError) throw new Error(`DB_Error: ${dbError.message}`);
 
-        // 2. Build the prompt
-        const systemPrompt = `
-      You are an AI assistant for Faizaan's portfolio.
-      Use the following context about Faizaan to answer the user's question.
-      If you don't know the answer, say you don't know.
-      Context: ${context}
-    `;
+        const context = documents?.map(doc => doc.content).join('\n') || 'No context found.';
+        console.log(`AI_BRAIN: Context found (${documents?.length || 0} chunks).`);
 
-        // 3. Request a completion from OpenAI
-        const response = await openai.createChatCompletion({
-            model: 'gpt-3.5-turbo',
-            stream: true,
-            messages: [
-                { role: 'system', content: systemPrompt },
-                ...messages.map(m => ({
-                    role: m.role || 'user',
-                    content: m.content
-                }))
-            ],
+        // 3. Request Groq
+        console.log('AI_BRAIN: Requesting Groq...');
+        const groqResponse = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+            method: 'POST',
+            headers: {
+                'Authorization': `Bearer ${process.env.GROQ_API_KEY}`,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                model: 'llama-3.1-8b-instant',
+                messages: [
+                    {
+                        role: 'system',
+                        content: `You are Faizaan. Respond in the first person (use "I", "I'm", "my"). Use this context to answer questions about your background, skills, and projects: ${context}`
+                    },
+                    ...messages
+                ],
+                stream: true,
+            })
         });
 
-        // 4. Return the stream to the frontend
-        const stream = OpenAIStream(response);
+        if (!groqResponse.ok) {
+            const groqErr = await groqResponse.text();
+            throw new Error(`Groq_${groqResponse.status}: ${groqErr}`);
+        }
+
+        console.log('AI_BRAIN: Streaming response back...');
+        const stream = OpenAIStream(groqResponse);
         return new StreamingTextResponse(stream);
 
     } catch (error) {
-        return new Response(JSON.stringify({ error: error.message }), { status: 500 });
+        console.error('AI_BRAIN_ERROR:', error.message);
+        return new Response(JSON.stringify({ error: error.message }), {
+            status: 500,
+            headers: { 'Content-Type': 'application/json' }
+        });
     }
 }
