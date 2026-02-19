@@ -786,20 +786,52 @@ async function sendChatMessage() {
   const thinkingId = appendMessage('RESUME_AI', 'SCANNING_KNOWLEDGE_BASE...', 'system-msg');
 
   try {
-    // Simulated delay for "Scanning" animation
-    await new Promise(resolve => setTimeout(resolve, 1500));
+    // 1. Attempt Real API Call to Vercel Backend
+    const response = await fetch('/api/chat', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        messages: [{ role: 'user', content: message }]
+      })
+    });
 
     removeMessage(thinkingId);
 
-    // DEMO RESPONSE (Since backend requires deployment)
-    const mockResponse = "I've detected a query about Faizaan. As an AI trained on his data, I can confirm he is a skilled developer specializing in Python, FastAPI, and Android development. To get real-time answers from my brain, please complete the Vercel/Supabase deployment!";
+    if (response.ok) {
+      // Create a message placeholder for the streaming response
+      const botMsgId = appendMessage('RESUME_AI', '', 'bot-msg');
+      const botMsgElement = document.getElementById(botMsgId).querySelector('.msg-content');
 
-    appendMessage('RESUME_AI', mockResponse, 'ai-msg', true);
+      const reader = response.body.getReader();
+      const decoder = new TextDecoder();
+      let done = false;
+      let fullText = '';
 
+      while (!done) {
+        const { value, done: readerDone } = await reader.read();
+        done = readerDone;
+        const chunk = decoder.decode(value, { stream: true });
+        fullText += chunk;
+        botMsgElement.textContent = fullText;
+
+        // Scroll to bottom
+        const chatMessages = document.getElementById('chat-messages');
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+      }
+    } else {
+      // Handle API error
+      try {
+        const errorData = await response.json();
+        appendMessage('RESUME_AI', `ERROR: ${errorData.error || 'Failed to connect to brain.'}`, 'system-msg');
+      } catch (e) {
+        // Fallback if response is not JSON
+        appendMessage('RESUME_AI', `ERROR: Failed to connect to brain status ${response.status}`, 'system-msg');
+      }
+    }
   } catch (error) {
     console.error('Chat Error:', error);
     removeMessage(thinkingId);
-    appendMessage('SYSTEM', 'ERROR: SECURE_CONNECTION_INTERRUPTED. PLEASE_RETRY.', 'system-msg');
+    appendMessage('SYSTEM', 'CONNECTIVITY_ISSUE: PLEASE_RETRY_AFTER_DEPLOYMENT.', 'system-msg');
   }
 }
 
