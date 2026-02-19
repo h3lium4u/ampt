@@ -464,7 +464,10 @@ gsap.to("#page2", {
     start: `top top`,
     end: `bottom top`,
     pin: true,
-    scroller: `#main`
+    scroller: `#main`,
+    onEnter: () => {
+      showGlobalNotification("Use ai bot to know more about my project");
+    }
   }
 })
 gsap.to("#page3", {
