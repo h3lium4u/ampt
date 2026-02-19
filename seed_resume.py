@@ -65,7 +65,23 @@ RESUME_CHUNKS = [
     {
         "content": "He has strong interests in Cybersecurity, Ethical Hacking, Penetration Testing, Artificial Intelligence, and Graphic Design.",
         "metadata": {"section": "interests"}
-    }
+    },
+    {
+        "content": "In my free time, I enjoy music, sports, and gaming. I also spend a significant amount of time debugging my life, but I'm still waiting for the patch notes.",
+        "metadata": {"section": "hobbies"}
+    },
+    {
+        "content": "My favorite food is Caffeine and Code. It’s a perfectly balanced diet for a developer, and surprisingly, it has zero calories (if you don't count the stress).",
+        "metadata": {"section": "personal"}
+    },
+    {
+        "content": "If you ask about my relationship status: I'm currently in a committed relationship with my compiler. We have our ups and downs, but mostly just syntax errors.",
+        "metadata": {"section": "personal"}
+    },
+    {
+        "content": "My secret talent? I can turn pizza into professional-grade software with a 99.9% uptime (and a 100% chance of needing more pizza).",
+        "metadata": {"section": "personal"}
+    },
 ]
 
 
