@@ -67,17 +67,22 @@ export default async function handler(req) {
         console.log(`AI_BRAIN: Context found (${documents?.length || 0} chunks).`);
 
         // 2.5 Log question for training
+        let queryId = null;
         try {
-            const { error: logError } = await supabase.from('chat_queries').insert({
+            const { data: logData, error: logError } = await supabase.from('chat_queries').insert({
                 query: lastMessage,
                 context_count: documents?.length || 0,
                 metadata: {
                     timestamp: new Date().toISOString(),
                     model: 'llama-3.1-8b-instant'
                 }
-            });
+            }).select('id').single();
+
             if (logError) console.error('AI_BRAIN: Logging Error:', logError.message);
-            else console.log('AI_BRAIN: Question logged.');
+            else {
+                queryId = logData?.id;
+                console.log('AI_BRAIN: Question logged, ID:', queryId);
+            }
         } catch (e) {
             console.error('AI_BRAIN: Logging Exception:', e.message);
         }
@@ -116,7 +121,23 @@ export default async function handler(req) {
         }
 
         console.log('AI_BRAIN: Streaming response back...');
-        const stream = OpenAIStream(groqResponse);
+        const stream = OpenAIStream(groqResponse, {
+            onCompletion: async (completion) => {
+                if (queryId) {
+                    try {
+                        const { error: updateError } = await supabase
+                            .from('chat_queries')
+                            .update({ answer: completion })
+                            .eq('id', queryId);
+
+                        if (updateError) console.error('AI_BRAIN: Answer Log Error:', updateError.message);
+                        else console.log('AI_BRAIN: Answer logged for ID:', queryId);
+                    } catch (e) {
+                        console.error('AI_BRAIN: Answer Log Exception:', e.message);
+                    }
+                }
+            }
+        });
         return new StreamingTextResponse(stream);
 
     } catch (error) {
