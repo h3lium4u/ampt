@@ -791,9 +791,8 @@ canvas {
    ======================================== */
 .illustration-editor {
     position: absolute;
-    top: 50%;
+    top: 10%;
     right: 8%;
-    transform: translateY(-50%);
     display: grid;
     grid-template-rows: 24px auto;
     justify-items: center;
@@ -1030,7 +1029,8 @@ canvas {
 
 @media (max-width: 1400px) {
     .illustration-editor {
-        transform: translateY(-50%) scale(0.85);
+        transform: scale(0.85);
+        top: 8%;
         right: 2%;
     }
 }
@@ -1193,8 +1193,9 @@ canvas {
 
 .projects-section .section-label {
     margin-left: 8%;
-    margin-bottom: 40px;
+    margin-bottom: 10px;
 }
+
 
 .projects-marquee {
     width: 100%;

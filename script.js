@@ -591,10 +591,15 @@ gsap.from(".cta-content", {
 
 function copyEmail() {
   navigator.clipboard.writeText('mohamedfaizaan5779@gmail.com');
-  // alert('Email copied to clipboard: mohamedfaizaan5779@gmail.com');
+  showGlobalNotification("Email copied to clipboard!");
+}
 
-  // GSAP Notification Animation
+// Reusable Global Notification Helper
+function showGlobalNotification(message) {
   const notification = document.getElementById("notification");
+  if (!notification) return;
+
+  notification.textContent = message;
 
   gsap.to(notification, {
     autoAlpha: 1,
@@ -607,7 +612,7 @@ function copyEmail() {
         y: -20,
         duration: 0.5,
         ease: "power2.in",
-        delay: 2
+        delay: 3
       });
     }
   });
@@ -783,7 +788,7 @@ async function sendChatMessage() {
   input.value = '';
 
   // Show AI "Thinking" state
-  const thinkingId = appendMessage('RESUME_AI', 'SCANNING_KNOWLEDGE_BASE...', 'system-msg');
+  const thinkingId = appendMessage('NEURAL_LINK', 'SCANNING_KNOWLEDGE_BASE...', 'system-msg');
 
   try {
     // 1. Attempt Real API Call to Vercel Backend
@@ -799,7 +804,7 @@ async function sendChatMessage() {
 
     if (response.ok) {
       // Create a message placeholder for the streaming response
-      const botMsgId = appendMessage('RESUME_AI', '', 'bot-msg');
+      const botMsgId = appendMessage('NEURAL_LINK', '', 'bot-msg');
       const botMsgElement = document.getElementById(botMsgId).querySelector('.msg-content');
 
       const reader = response.body.getReader();
@@ -822,10 +827,10 @@ async function sendChatMessage() {
       // Handle API error
       try {
         const errorData = await response.json();
-        appendMessage('RESUME_AI', `ERROR: ${errorData.error || 'Failed to connect to brain.'}`, 'system-msg');
+        appendMessage('NEURAL_LINK', `ERROR: ${errorData.error || 'Failed to connect to brain.'}`, 'system-msg');
       } catch (e) {
         // Fallback if response is not JSON
-        appendMessage('RESUME_AI', `ERROR: Failed to connect to brain status ${response.status}`, 'system-msg');
+        appendMessage('NEURAL_LINK', `ERROR: Failed to connect to brain status ${response.status}`, 'system-msg');
       }
     }
   } catch (error) {
